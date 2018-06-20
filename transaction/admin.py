@@ -27,6 +27,6 @@ class CategoryAdmin(admin.ModelAdmin):
     filter_horizontal = ('user',)
 
 
-
+admin.site.register(User, UserAdmin)
 admin.site.register(Transaction, TransactionAdmin)
 admin.site.register(Category, CategoryAdmin)    
