@@ -21,7 +21,7 @@ class Category(models.Model):
         verbose_name_plural = 'categories'
     
     def __str__(self):
-        return self.category_type
+        return '%s (%s)' %(self.category_type,self.category_sub_type)
 
 
 class Transaction(models.Model):

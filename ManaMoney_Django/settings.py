@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # External Apps
     'rest_framework',
+    'django_filters',
 
     # Custom Apps
     'transaction',
@@ -126,3 +127,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'transaction.User'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS':(
+        'rest_framework.filters.SearchFilter',
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+    ),
+
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+    ]
+}
