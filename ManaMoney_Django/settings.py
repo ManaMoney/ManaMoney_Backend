@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
 
     # External Apps
     'rest_framework',
@@ -112,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asian/Kuala Lumpur'
+TIME_ZONE = 'Asia/Kuala_Lumpur'
 
 USE_I18N = True
 
