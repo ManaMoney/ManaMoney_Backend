@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # from django.utils.timezone.now import timezone
 from django.conf import settings
+from django.utils import timezone
 
 class User(AbstractUser):
     birth_date = models.DateField("birth date", null = True, blank = True)
@@ -34,7 +35,7 @@ class Transaction(models.Model):
     transaction = models.CharField("transaction", max_length = 10, choices = TRANSACTION_CHOICES)
     amount = models.DecimalField("amount", blank = False, default = 0.00, max_digits=10 ,decimal_places= 2,)
     remark = models.TextField("remark",max_length= 50, blank = True, null = False)
-    transaction_date = models.DateTimeField("date", auto_now_add= True)
+    transaction_date = models.DateTimeField("date",default = timezone.now)
     category = models.ForeignKey(
         Category,
         on_delete = models.SET_NULL,
