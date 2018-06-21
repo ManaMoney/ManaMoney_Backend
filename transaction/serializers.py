@@ -7,11 +7,33 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CategorySerializer(serializers.ModelSerializer):
+    user_name = serializers.SlugRelatedField(
+        source = 'user',
+        many = True,
+        read_only = True,
+        slug_field= 'username',
+    )
     class Meta:
         model = Category
         fields = '__all__'
+        fields = [
+            'category_type',
+            'category_sub_type',
+            'user',
+            'user_name',
+        ]
+
+        extra_kwargs = {
+            'user': { 'write_only': True },
+        }
 
 class TransactionSerializer(serializers.ModelSerializer):
+    user_name = serializers.SlugRelatedField(
+        source = 'user',
+        many = False,
+        read_only = True,
+        slug_field='username',
+    )
     category_name = serializers.SlugRelatedField(
         source = 'category',
         many = False,
@@ -28,6 +50,8 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = [
+            'user',
+            'user_name',
             'transaction',
             'category',
             'category_name',
@@ -38,6 +62,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             ]
 
     extra_kwargs = {
+        'user' : {'write_only': True},
         'category':{ 'write_only':True },
         'sub_category':{ 'write_only':True },
 
