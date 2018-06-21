@@ -12,6 +12,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class TransactionAdmin(admin.ModelAdmin):
     list_display = [
+        'user',
         'transaction',
         'amount',
         'remark',
