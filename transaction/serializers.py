@@ -7,14 +7,27 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TransactionSerializer(serializers.ModelSerializer):
-    Category = serializers.SlugRelatedField(
-        many=False,
+    category_name = serializers.SlugRelatedField(
+        source = 'category',
+        many = False,
         read_only=True,
         slug_field='category_type'
     )
+    sub_category_name = serializers.SlugRelatedField(
+        source = 'category',
+        many= False,
+        read_only = True,
+        slug_field='category_sub_type'
+    )
+
+    
     class Meta:
         model = Transaction
-        fields = '__all__'
+        fields = 'transaction','category_name','sub_category_name','amount','remark','transaction_date'
+
+    extra_kwargs = {
+        'category':{ 'write_only':True }
+    }
 
 
 class UserSerializer(serializers.ModelSerializer):
