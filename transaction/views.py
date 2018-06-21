@@ -5,6 +5,9 @@ from rest_framework import generics
 # Create your views here.
 
 
+class UserList(generics.ListCreateAPIView):
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserSerializer
 
 
 class CategoryList(generics.ListCreateAPIView):
@@ -21,6 +24,3 @@ class TransactionList(generics.ListCreateAPIView):
     ordering = ('-transaction_date') 
 
 
-class UserList(generics.ListCreateAPIView):
-    queryset = models.User.objects.all()
-    serializer_class = serializers.UserSerializer

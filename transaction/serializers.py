@@ -5,8 +5,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        
-        
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
 class TransactionSerializer(serializers.ModelSerializer):
     category_name = serializers.SlugRelatedField(
         source = 'category',
@@ -23,14 +27,20 @@ class TransactionSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Transaction
-        fields = 'transaction','category_name','sub_category_name','amount','remark','transaction_date'
+        fields = [
+            'transaction',
+            'category',
+            'category_name',
+            # 'sub_category',
+            'sub_category_name',
+            'amount','remark',
+            'transaction_date'
+            ]
 
     extra_kwargs = {
-        'category':{ 'write_only':True }
+        'category':{ 'write_only':True },
+        'sub_category':{ 'write_only':True },
+
     }
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
