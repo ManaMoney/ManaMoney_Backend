@@ -51,7 +51,7 @@ class Transaction(models.Model):
 
     # TO STRING METHOD
     def __str__(self):
-        return self.transaction
+        return '%s %d' % (self.transaction, self.amount)
 
 
 

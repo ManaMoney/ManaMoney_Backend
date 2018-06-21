@@ -1,11 +1,12 @@
 from .models import *
 from rest_framework import serializers
 
-class CategorySerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = User
         fields = '__all__'
-
+        
+        
 class TransactionSerializer(serializers.ModelSerializer):
     category_name = serializers.SlugRelatedField(
         source = 'category',
@@ -19,7 +20,6 @@ class TransactionSerializer(serializers.ModelSerializer):
         read_only = True,
         slug_field='category_sub_type'
     )
-
     
     class Meta:
         model = Transaction
@@ -30,7 +30,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     }
 
 
-class UserSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Category
         fields = '__all__'
