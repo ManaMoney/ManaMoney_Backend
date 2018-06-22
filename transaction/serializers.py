@@ -58,7 +58,8 @@ class TransactionSerializer(serializers.ModelSerializer):
             'category_name',
             # 'sub_category',
             'sub_category_name',
-            'amount','remark',
+            'amount',
+            'content',
             'transaction_date'
             ]
 

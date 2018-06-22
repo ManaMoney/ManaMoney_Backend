@@ -15,7 +15,7 @@ class TransactionAdmin(admin.ModelAdmin):
         'user',
         'transaction',
         'amount',
-        'remark',
+        'content',
         'transaction_date',
         'category',
     ]
