@@ -24,6 +24,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = [
         'category_type',
         'category_sub_type',
+        'transaction_type',
     ]
     filter_horizontal = ('user',)
 

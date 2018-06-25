@@ -19,6 +19,7 @@ class CategorySerializer(serializers.ModelSerializer):
             'id',
             'category_type',
             'category_sub_type',
+            'transaction_type',
             'user',
             'user_name',
         ]
