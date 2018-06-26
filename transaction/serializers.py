@@ -61,7 +61,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             'sub_category_name',
             'amount',
             'content',
-            'transaction_date'
+            'transaction_date',
             ]
 
     extra_kwargs = {
@@ -70,5 +70,14 @@ class TransactionSerializer(serializers.ModelSerializer):
         'sub_category':{ 'write_only':True },
 
     }
+
+# class TransactionFilterSerializer(serializers.ModelSerializer):
+#     month = serializers.DateTimeField()
+
+#     class Meta:
+#         model = Transaction
+#         fields = '__all__'
+
+
 
 

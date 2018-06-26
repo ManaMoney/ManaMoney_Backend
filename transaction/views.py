@@ -2,8 +2,10 @@ from django.shortcuts import render
 from . import models
 from . import serializers
 from rest_framework import generics, permissions
+from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
-
+from django.db.models.fields import DateField
+from django.db.models.functions import Trunc
 
 class UserListView(generics.ListCreateAPIView):
     queryset = models.User.objects.all()
@@ -35,23 +37,6 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
         permissions.IsAuthenticatedOrReadOnly,
     }
 
-# class CategoryLookUpView(object):
-#     def get_object(self):
-#         queryset = self.get_queryset()
-#         queryset = self.filter_queryset(queryset)
-#         filter = {'transaction_type'}
-#         for field in self.lookupfields:
-#             if self.kwargs[field]:
-#                 filter[field] = self.kwargs[field]
-#         obj = get_object_or_404(queryset, **filter)
-#         self.check_object_permissions(self.request, obj)
-#         return obj
-
-# class RetrieveCategoryView(CategoryLookUpView, generics.RetrieveAPIView):
-#     queryset = models.Category.objects.all()
-#     serializer_class = serializers.CategorySerializer 
-#     lookup_fields = ('transaction_type')
-
 class TransactionListView(generics.ListCreateAPIView):
     queryset = models.Transaction.objects.all()
     serializer_class = serializers.TransactionSerializer
@@ -70,3 +55,41 @@ class TransactionDetailView(generics.RetrieveUpdateDestroyAPIView):
         permissions.IsAuthenticatedOrReadOnly,
     }
 
+
+# class TransactionFilterView(generics.ListAPIView):
+#     serializer_class = serializers.TransactionFilterSerializer 
+    # queryset = models.Transaction.objects.all() 
+    # queryset = models.Transaction.get_all_expense_monthly(models.Transaction)
+    # filter_fields = ('transaction',)  
+    # def get_queryset(self):
+    #     # filter_transaction = self.request.GET.get('filter', 'INCOME')
+    #     filter_date = self.request.GET.get('filter', '')
+    #     new_context = models.Transaction.objects.annotate(
+    #             date = Trunc(
+    #                 'transaction_date', filter_date, output_field= DateField())).values(
+    #                     'date')
+    #     return new_context
+
+# .filter(transaction = filter_transaction)
+
+# class FilterView(ListView):
+    # model = models.Transaction
+    # template = None
+
+    # def get_query_set(self):
+    #     filter_val = self.request.GET.get('filter', 'INCOME')
+    #     new_context = models.Transaction.objects.filter(
+    #         transaction = filter_val,
+    #     )
+    #     return new_context
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(FilterView, self).get_context_data(**kwargs)
+    #     context['filter'] = self.request.GET.get('filter', 'INCOME')
+    #     return context
+
+
+# class TransactionTotalView(generics.RetrieveAPIView):
+#     queryset = models.Transaction.get_total_expense_monthly(models.Transaction)
+#     lookup_field = 'transaction'
+    # serializer_class

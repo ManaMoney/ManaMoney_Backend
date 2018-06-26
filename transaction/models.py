@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.utils import timezone
+from django.utils.timezone import localdate
 from django.db.models import Sum
-from django.db.models.functions import TruncMonth
+from django.db.models.fields import DateField
+from django.db.models.functions import TruncMonth, TruncYear, Trunc
 
 
 class User(AbstractUser):
@@ -81,14 +83,34 @@ class Transaction(models.Model):
     def __str__(self):
         return '%s %d' % (self.transaction, self.amount)
 
-    # def get_total_expense(self):
+    # CUSTOM METHODS
+    # def get_total_expense_daily(self):
+    #     this_day = localdate()
     #     queryset = self.objects.filter(transaction = 'EXPENSE')
-    #     return queryset.aggregate(Sum('amount'))
+    #     return queryset.annotate(day = Trunc('transaction_date', 'day', output_field = DateField())).filter(day = this_day).aggregate(Sum('amount'))
 
-    # def get_total_income(self):
+    # def get_total_income_daily(self):
+    #     this_day = localdate()
     #     queryset = self.objects.filter(transaction = 'INCOME')
-    #     return queryset.aggregate(Sum('amount'))
+    #     return queryset.annotate(day = Trunc('transaction_date', 'day', output_field = DateField())).filter(day = this_day).aggregate(Sum('amount'))
 
     # def get_total_expense_monthly(self):
-        # queryset = self.objects.annotate(month = TruncMonth('timestamp')).
+    #     queryset = self.objects.filter(transaction = 'EXPENSE')
+    #     return queryset.annotate(month = TruncMonth('transaction_date')).values('month', 'amount').aggregate(Sum('amount'))
+
+    # def get_all_expense_monthly(self):
+    #     queryset = self.objects.filter(transaction = 'EXPENSE')
+    #     return queryset.annotate(month = TruncMonth('transaction_date')).values('month', 'amount')
+
+    # def get_total_income_monthly(self):
+    #     queryset = self.objects.filter(transaction = 'INCOME')
+    #     return queryset.annotate(month = TruncMonth('transaction_date')).values('month', 'amount').aggregate(Sum('amount'))
+
+    # def get_total_expense_yearly(self):
+    #     queryset = self.objects.filter(transaction = 'EXPENSE')
+    #     return queryset.annotate(month = TruncYear('transaction_date')).values('month', 'amount').aggregate(Sum('amount'))
+
+    # def get_total_income_yearly(self):
+    #     queryset = self.objects.filter(transaction = 'INCOME')
+    #     return queryset.annotate(month = TruncYear('transaction_date')).values('month', 'amount').aggregate(Sum('amount'))
 
